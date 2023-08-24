@@ -1,0 +1,44 @@
+spring:
+  data:
+    redis:
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 10
+          min-idle: 2
+      port: 6379
+      host: localhost
+  thymeleaf:
+    check-template-location: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/
+    username: root
+    password: asdf1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+      file-size-threshold: 2KB
+      location: /tmp/
+    mvc:
+      static-path-pattern: /static/**
+    web:
+      resources:
+        static-locations: file:media/,classpath:/static
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-unknown-properties: false
+jwt:
+  secret: aaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaesasdfqve
+  token:
+    access-expiration-time: 43200000    # 12??
+    refresh-expiration-time: 604800000   # 7?
