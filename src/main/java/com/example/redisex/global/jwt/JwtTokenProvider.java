@@ -37,9 +37,6 @@ public class JwtTokenProvider {
     @Value("${jwt.token.refresh-expiration-time}")
     private Long refreshExpirationTime;
 
-    @Autowired
-    private UserService userService;
-
 
     /*
           사용자 인증 정보를 바탕으로 Access 토큰 생성하여 일시적인 접근 권한 부여
@@ -97,7 +94,7 @@ public class JwtTokenProvider {
                 .parseClaimsJwt(token)
                 .getBody().getSubject();
         // CustomUserDetails 객체를 가져와 인증 객체 생성
-        UserDetails userDetails = userService.loadUserByUsername(userPrincipal);
+        UserDetails userDetails = CustomUserDetails.builder().username(userPrincipal).build();
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
