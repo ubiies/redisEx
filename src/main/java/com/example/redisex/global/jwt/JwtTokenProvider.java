@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -36,8 +37,8 @@ public class JwtTokenProvider {
     @Value("${jwt.token.refresh-expiration-time}")
     private Long refreshExpirationTime;
 
-//    @Autowired
-//    private UserService userService;
+    @Autowired
+    private UserService userService;
 
 
     /*
@@ -96,7 +97,7 @@ public class JwtTokenProvider {
                 .parseClaimsJwt(token)
                 .getBody().getSubject();
         // CustomUserDetails 객체를 가져와 인증 객체 생성
-        CustomUserDetails userDetails = userService.loadUserByUsername(userPrincipal);
+        UserDetails userDetails = userService.loadUserByUsername(userPrincipal);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 

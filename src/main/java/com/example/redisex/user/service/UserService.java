@@ -2,7 +2,6 @@ package com.example.redisex.user.service;
 
 import com.example.redisex.global.jwt.JwtTokenDto;
 import com.example.redisex.global.jwt.JwtTokenProvider;
-import com.example.redisex.global.jwt.JwtTokenUtils;
 import com.example.redisex.user.dto.CustomUserDetails;
 import com.example.redisex.user.dto.LoginDto;
 import com.example.redisex.user.entity.UserEntity;
@@ -29,7 +28,7 @@ public class UserService implements UserDetailsManager {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenUtils jwtTokenUtils, JwtTokenProvider jwtTokenProvider) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;

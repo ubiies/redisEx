@@ -2,7 +2,6 @@ package com.example.redisex.config;
 
 import com.example.redisex.global.jwt.JwtTokenFilter;
 import com.example.redisex.global.jwt.JwtTokenProvider;
-import com.example.redisex.global.jwt.JwtTokenUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,12 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
     private final JwtTokenFilter jwtTokenFilter;
     private JwtTokenProvider jwtTokenProvider;
-    private final JwtTokenUtils jwtTokenUtils;
 
-    public WebSecurityConfig(JwtTokenFilter jwtTokenFilter, JwtTokenProvider jwtTokenProvider, JwtTokenUtils jwtTokenUtils) {
+    public WebSecurityConfig(JwtTokenFilter jwtTokenFilter, JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenFilter = jwtTokenFilter;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.jwtTokenUtils = jwtTokenUtils;
     }
 
     @Bean
@@ -38,7 +35,7 @@ public class WebSecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // jwt 적용
-        http.apply(new JwtSecurityConfig(jwtTokenProvider,jwtTokenUtils));
+        http.apply(new JwtSecurityConfig(jwtTokenProvider));
         return http.build();
     }
 
