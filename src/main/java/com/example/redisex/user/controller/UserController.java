@@ -1,6 +1,10 @@
 package com.example.redisex.user.controller;
 
+import com.example.redisex.global.exception.BaseException;
+import com.example.redisex.global.exception.ErrorCode;
 import com.example.redisex.global.jwt.JwtTokenDto;
+import com.example.redisex.user.dto.CustomUserDetails;
+import com.example.redisex.user.dto.JoinDto;
 import com.example.redisex.user.dto.LoginDto;
 import com.example.redisex.user.service.UserService;
 import jakarta.validation.Valid;
@@ -21,6 +25,14 @@ public class UserController {
     @PostMapping("/login")
     public JwtTokenDto login(@RequestBody @Valid LoginDto request) {
         return service.login(request);
+    }
+
+    @PostMapping("/join")
+    public void join(@RequestBody @Valid JoinDto request) {
+        if (!request.getPasswordCheck().equals(request.getPassword()))
+            throw new BaseException(ErrorCode.DIFF_PASSWORD_CHECK, String.format("Username : %s", request.getUsername()));
+
+        service.createUser(CustomUserDetails.fromDto(request));
     }
 
 }

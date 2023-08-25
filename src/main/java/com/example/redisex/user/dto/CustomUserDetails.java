@@ -16,6 +16,11 @@ public class CustomUserDetails implements UserDetails {
     private String email;
     private String phone;
 
+    public void setEncodedPassword(String encodedPassword) {
+        this.password = encodedPassword;
+    }
+
+
     public static CustomUserDetails fromEntity(UserEntity user) {
         return CustomUserDetails.builder()
                 .username(user.getUsername())

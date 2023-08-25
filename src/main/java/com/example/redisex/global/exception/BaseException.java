@@ -1,13 +1,17 @@
 package com.example.redisex.global.exception;
 
-public class BaseException extends RuntimeException {
-    private final ErrorCode errorCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-    public BaseException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
-    }
-    public ErrorCode getErrorCode() {
-        return errorCode;
+@Getter
+@AllArgsConstructor
+public class BaseException extends RuntimeException {
+    private ErrorCode errorCode;
+    private String message;
+
+    @Override
+    public String toString() {
+        if(message == null) return errorCode.getMessage();
+        return String.format("%s. %s", errorCode.getMessage(), message);
     }
 }

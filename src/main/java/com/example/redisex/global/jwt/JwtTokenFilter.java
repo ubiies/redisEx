@@ -47,9 +47,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             }
         } catch (RedisConnectionFailureException e) {
             SecurityContextHolder.clearContext();
-            throw new BaseException(REDIS_ERROR);
+            throw new BaseException(REDIS_ERROR, "An error occurred while connecting to Redis.");
         } catch (Exception e) {
-            throw new BaseException(INVALID_JWT);
+            throw new BaseException(INVALID_JWT, "Invalid JWT token.");
         }
 
         filterChain.doFilter(request, response);
